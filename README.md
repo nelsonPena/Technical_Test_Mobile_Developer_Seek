@@ -48,12 +48,12 @@ private func createUseCase() -> ScannedDataUseCase? {
 ### Pasos para configurar y ejecutar la aplicación
 1. **Clonar el repositorio**:
    ```sh
-   git clone https://github.com/tuusuario/tu-repositorio.git
-   cd tu-repositorio
+   git clone https://github.com/nelsonPena/Technical_Test_Mobile_Developer_Seek
+   cd Technical_Test_Mobile_Developer_Seek
    ```
 2. **Abrir el proyecto en Xcode**:
    ```sh
-   open YourProject.xcodeproj
+   open Technical_Test_Mobile_Developer_Seek.xcodeproj
    ```
 3. **Configurar Info.plist**:
    - Editar `Info.plist` y establecer la clave `Use Core Data` en `YES` o `NO` según el método de persistencia deseado.
