@@ -60,7 +60,6 @@ private func createUseCase() -> ScannedDataUseCase? {
 - Xcode 15 o superior
 - iOS 17 o superior
 - Swift 5.9 o superior
-- Cocoapods (si se usa en el proyecto)
 
 ### Pasos para configurar y ejecutar la aplicación
 1. **Clonar el repositorio**:
@@ -74,19 +73,7 @@ private func createUseCase() -> ScannedDataUseCase? {
    ```
 3. **Configurar Info.plist**:
    - Editar `Info.plist` y establecer la clave `Use Core Data` en `YES` o `NO` según el método de persistencia deseado.
-4. **Instalar dependencias (si aplica)**:
-   ```sh
-   pod install
-   ```
-5. **Seleccionar un simulador o dispositivo real** en Xcode.
-6. **Compilar y ejecutar la aplicación**:
+
+4. **Seleccionar un simulador o dispositivo real** en Xcode.
+5. **Compilar y ejecutar la aplicación**:
    - Presionar `Cmd + R` o hacer clic en el botón de ejecución en Xcode.
-
-## Beneficios de la Arquitectura Limpia en Esta Implementación
-✅ **Escalabilidad** - Agregar una nueva capa de persistencia (ej. Firebase, Realm) requiere cambios mínimos.  
-✅ **Separación de Responsabilidades** - La UI, la lógica de negocio y la persistencia de datos están desacopladas.  
-✅ **Testabilidad** - Cada componente puede ser probado de forma independiente.  
-✅ **Flexibilidad** - El sistema selecciona dinámicamente la mejor implementación del repositorio.  
-✅ **Seguridad** - La autenticación biométrica y el uso de Keychain mejoran la protección del usuario.  
-✅ **Confiabilidad** - Las pruebas unitarias aseguran estabilidad y previenen regresiones.  
-
