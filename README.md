@@ -17,17 +17,13 @@ El proyecto sigue los principios de **Arquitectura Limpia**, asegurando bajo aco
 
 ## Capturas de Pantalla
 
-### Pantalla de Autenticación
-![Pantalla de Autenticación](file-HL44pGFWHcsNUnzEVX6vH1)
+| Pantalla | Descripción |
+|----------|------------|
+| ![image](https://github.com/user-attachments/assets/9f22622d-98a0-4a82-8ce5-7782ab4aeb26) | **Pantalla de Autenticación** |
+| ![image](https://github.com/user-attachments/assets/edacee62-d10a-4297-9f8e-1cef54d9e142) | **Lista de Escaneos Vacía** |
+| ![image](https://github.com/user-attachments/assets/11ba69d9-8543-4291-b0dd-4799bb418f12) | **Lista con un Código QR Escaneado** |
+| ![image](https://github.com/user-attachments/assets/84410feb-b9de-4e50-a173-47fe8785111c) | **Escaneo de Código QR en Tiempo Real** |
 
-### Lista de Escaneos Vacía
-![Lista de Escaneos Vacía](file-QHKmeChzijCB6iXxM4SFoX)
-
-### Lista con un Código QR Escaneado
-![Lista con Escaneo](file-E6Q7G1AFKj6iwuP5Pe3BYA)
-
-### Escaneo de Código QR en Tiempo Real
-![Escaneo de Código QR](file-1bLPi785SdJjw3JeXcHDwS)
 
 ## Selección Dinámica del Repositorio
 La aplicación determina el método de persistencia en función de la configuración `Use Core Data` en `Info.plist`:
