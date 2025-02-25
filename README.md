@@ -15,6 +15,23 @@ El proyecto sigue los principios de **Arquitectura Limpia**, asegurando bajo aco
 - **Uso de Keychain**: Almacena de manera segura credenciales y datos sensibles.
 - **Pruebas Unitarias**: Garantiza la confiabilidad de la aplicación validando las funcionalidades principales mediante pruebas automatizadas.
 
+## Patrón Coordinator
+El **Patrón Coordinator** permite gestionar la navegación de la aplicación de manera centralizada, asegurando una mejor organización del flujo de pantallas y la separación de responsabilidades. `AppCoordinator` maneja la autenticación y el enrutamiento de vistas sin acoplar la lógica de navegación a las propias vistas. Esto facilita la escalabilidad y la prueba de los flujos de usuario.
+
+Ejemplo de implementación en `AppCoordinator`:
+
+```swift
+func push(page: AppPages) {
+    DispatchQueue.main.async {
+        self.path.append(page)
+    }
+}
+
+func popToRoot() {
+    path = NavigationPath()
+}
+```
+
 ## Capturas de Pantalla
 
 | Pantalla | Descripción |
