@@ -10,6 +10,7 @@ The project follows **Clean Architecture**, ensuring low coupling and high scala
 - **Low Coupling**: Components interact through abstractions, making it easier to extend or modify the system.
 - **Swift + AVFoundation**: Integrates with Apple's media frameworks for advanced functionalities.
 - **Biometric Authentication**: Supports Face ID and Touch ID for enhanced security.
+- **Unit Tests**: Ensures the reliability of the application by validating the core functionalities through automated testing.
 
 ## Dynamic Repository Selection
 The application determines the persistence method based on the `Use Core Data` configuration in `Info.plist`:
@@ -30,7 +31,8 @@ private func createUseCase() -> ScannedDataUseCase? {
 ✅ **Testability** - Each component can be unit tested independently.  
 ✅ **Flexibility** - The system dynamically selects the best repository implementation.  
 ✅ **Security** - Biometric authentication enhances user protection.  
+✅ **Reliability** - Unit tests ensure the functionality remains stable and prevent regressions.  
 
 ## Conclusion
-This approach ensures a clean, scalable, and testable implementation for dynamically selecting a persistence layer based on configuration settings, while integrating **AVFoundation** for media handling and **biometric authentication** for secure access.
+This approach ensures a clean, scalable, and testable implementation for dynamically selecting a persistence layer based on configuration settings, while integrating **AVFoundation** for media handling, **biometric authentication** for secure access, and **unit testing** for maintaining high software quality.
 
