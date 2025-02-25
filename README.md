@@ -1,19 +1,20 @@
-# Technical Test - Mobile Developer
+# Prueba Técnica - Desarrollador Mobile
 
-## Overview
-This project demonstrates how to switch between different persistence layers (`SwiftData` and `CoreData`) using Clean Architecture principles. The implementation ensures that the decision to use either `SwiftData` or `CoreData` is managed dynamically based on a configuration setting.
+## Resumen
+Este proyecto demuestra cómo cambiar entre diferentes capas de persistencia (`SwiftData` y `CoreData`) utilizando principios de Arquitectura Limpia. La implementación garantiza que la decisión de usar `SwiftData` o `CoreData` se gestione dinámicamente en función de una configuración.
 
-## Architecture Overview
-The project follows **Clean Architecture**, ensuring low coupling and high scalability. It includes:
+## Arquitectura
+El proyecto sigue los principios de **Arquitectura Limpia**, asegurando bajo acoplamiento y alta escalabilidad. Incluye:
 
-- **Factory Implementation**: `ScanningListViewFactory` centralizes the creation of all layers (Presentation, Domain, and Data), improving maintainability and flexibility.
-- **Low Coupling**: Components interact through abstractions, making it easier to extend or modify the system.
-- **Swift + AVFoundation**: Integrates with Apple's media frameworks for advanced functionalities.
-- **Biometric Authentication**: Supports Face ID and Touch ID for enhanced security.
-- **Unit Tests**: Ensures the reliability of the application by validating the core functionalities through automated testing.
+- **Implementación de Fábrica**: `ScanningListViewFactory` centraliza la creación de todas las capas (Presentación, Dominio y Datos), mejorando la mantenibilidad y flexibilidad.
+- **Bajo Acoplamiento**: Los componentes interactúan a través de abstracciones, facilitando la extensión o modificación del sistema.
+- **Swift + AVFoundation**: Integración con los frameworks multimedia de Apple para funcionalidades avanzadas.
+- **Autenticación Biométrica**: Soporta Face ID y Touch ID para mayor seguridad.
+- **Uso de Keychain**: Almacena de manera segura credenciales.
+- **Pruebas Unitarias**: Garantiza la confiabilidad de la aplicación validando las funcionalidades principales mediante pruebas automatizadas.
 
-## Dynamic Repository Selection
-The application determines the persistence method based on the `Use Core Data` configuration in `Info.plist`:
+## Selección Dinámica del Repositorio
+La aplicación determina el método de persistencia en función de la configuración `Use Core Data` en `Info.plist`:
 
 ```swift
 private func createUseCase() -> ScannedDataUseCase? {
@@ -25,14 +26,33 @@ private func createUseCase() -> ScannedDataUseCase? {
 }
 ```
 
-## Benefits of Clean Architecture in This Implementation
-✅ **Scalability** - Adding a new persistence layer (e.g., Firebase, Realm) requires minimal changes.  
-✅ **Separation of Concerns** - UI, business logic, and data persistence are decoupled.  
-✅ **Testability** - Each component can be unit tested independently.  
-✅ **Flexibility** - The system dynamically selects the best repository implementation.  
-✅ **Security** - Biometric authentication enhances user protection.  
-✅ **Reliability** - Unit tests ensure the functionality remains stable and prevent regressions.  
+## Instrucciones de Configuración y Ejecución
+### Requisitos previos
+- Xcode 15 o superior
+- iOS 17 o superior
+- Swift 5.9 o superior
 
-## Conclusion
-This approach ensures a clean, scalable, and testable implementation for dynamically selecting a persistence layer based on configuration settings, while integrating **AVFoundation** for media handling, **biometric authentication** for secure access, and **unit testing** for maintaining high software quality.
+### Pasos para configurar y ejecutar la aplicación
+1. **Clonar el repositorio**:
+   ```sh
+   git clone https://github.com/tuusuario/tu-repositorio.git
+   cd tu-repositorio
+   ```
+2. **Abrir el proyecto en Xcode**:
+   ```sh
+   open YourProject.xcodeproj
+   ```
+3. **Configurar Info.plist**:
+   - Editar `Info.plist` y establecer la clave `Use Core Data` en `YES` o `NO` según el método de persistencia deseado.
+4. **Seleccionar un simulador o dispositivo real** en Xcode.
+5. **Compilar y ejecutar la aplicación**:
+   - Presionar `Cmd + R` o hacer clic en el botón de ejecución en Xcode.
+
+## Beneficios de la Arquitectura Limpia en Esta Implementación
+✅ **Escalabilidad** - Agregar una nueva capa de persistencia (ej. Firebase, Realm) requiere cambios mínimos.  
+✅ **Separación de Responsabilidades** - La UI, la lógica de negocio y la persistencia de datos están desacopladas.  
+✅ **Testabilidad** - Cada componente puede ser probado de forma independiente.  
+✅ **Flexibilidad** - El sistema selecciona dinámicamente la mejor implementación del repositorio.  
+✅ **Seguridad** - La autenticación biométrica y el uso de Keychain mejoran la protección del usuario.  
+✅ **Confiabilidad** - Las pruebas unitarias aseguran estabilidad y previenen regresiones.  
 
