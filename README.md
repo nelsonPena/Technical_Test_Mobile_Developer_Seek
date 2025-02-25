@@ -6,12 +6,28 @@ Este proyecto demuestra cómo cambiar entre diferentes capas de persistencia (`S
 ## Arquitectura
 El proyecto sigue los principios de **Arquitectura Limpia**, asegurando bajo acoplamiento y alta escalabilidad. Incluye:
 
+- **Arquitectura de Presentación MVVM**: Separa la lógica de negocio de la interfaz de usuario, facilitando el mantenimiento y la escalabilidad del código.
+- **Patrón Coordinator**: Implementado a través de `AppCoordinator`, gestiona la navegación y flujo de la aplicación de manera centralizada, desacoplando la lógica de navegación de las vistas.
 - **Implementación de Fábrica**: `ScanningListViewFactory` centraliza la creación de todas las capas (Presentación, Dominio y Datos), mejorando la mantenibilidad y flexibilidad.
 - **Bajo Acoplamiento**: Los componentes interactúan a través de abstracciones, facilitando la extensión o modificación del sistema.
 - **Swift + AVFoundation**: Integración con los frameworks multimedia de Apple para funcionalidades avanzadas.
 - **Autenticación Biométrica**: Soporta Face ID y Touch ID para mayor seguridad.
-- **Uso de Keychain**: Almacena de manera segura credenciales.
+- **Uso de Keychain**: Almacena de manera segura credenciales y datos sensibles.
 - **Pruebas Unitarias**: Garantiza la confiabilidad de la aplicación validando las funcionalidades principales mediante pruebas automatizadas.
+
+## Capturas de Pantalla
+
+### Pantalla de Autenticación
+![Pantalla de Autenticación](file-HL44pGFWHcsNUnzEVX6vH1)
+
+### Lista de Escaneos Vacía
+![Lista de Escaneos Vacía](file-QHKmeChzijCB6iXxM4SFoX)
+
+### Lista con un Código QR Escaneado
+![Lista con Escaneo](file-E6Q7G1AFKj6iwuP5Pe3BYA)
+
+### Escaneo de Código QR en Tiempo Real
+![Escaneo de Código QR](file-1bLPi785SdJjw3JeXcHDwS)
 
 ## Selección Dinámica del Repositorio
 La aplicación determina el método de persistencia en función de la configuración `Use Core Data` en `Info.plist`:
@@ -31,6 +47,7 @@ private func createUseCase() -> ScannedDataUseCase? {
 - Xcode 15 o superior
 - iOS 17 o superior
 - Swift 5.9 o superior
+- Cocoapods (si se usa en el proyecto)
 
 ### Pasos para configurar y ejecutar la aplicación
 1. **Clonar el repositorio**:
@@ -44,8 +61,12 @@ private func createUseCase() -> ScannedDataUseCase? {
    ```
 3. **Configurar Info.plist**:
    - Editar `Info.plist` y establecer la clave `Use Core Data` en `YES` o `NO` según el método de persistencia deseado.
-4. **Seleccionar un simulador o dispositivo real** en Xcode.
-5. **Compilar y ejecutar la aplicación**:
+4. **Instalar dependencias (si aplica)**:
+   ```sh
+   pod install
+   ```
+5. **Seleccionar un simulador o dispositivo real** en Xcode.
+6. **Compilar y ejecutar la aplicación**:
    - Presionar `Cmd + R` o hacer clic en el botón de ejecución en Xcode.
 
 ## Beneficios de la Arquitectura Limpia en Esta Implementación
