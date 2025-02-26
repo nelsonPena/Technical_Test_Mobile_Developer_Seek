@@ -77,3 +77,21 @@ private func createUseCase() -> ScannedDataUseCase? {
 4. **Seleccionar un simulador o dispositivo real** en Xcode.
 5. **Compilar y ejecutar la aplicación**:
    - Presionar `Cmd + R` o hacer clic en el botón de ejecución en Xcode.
+
+### Comentarios 
+
+El punto en la prueba, referente a flutter:
+```
+Crear un módulo base en Flutter con estructura compatible para futuras
+expansiones, integrando dicho módulo en la aplicación nativa mediante
+FlutterEngine y FlutterViewController y utilizando un canal de comunicación
+entre Swift y Flutter utilizando MethodChannels
+```
+
+**No fue posible avanzar en este punto debido al poco tiempo establecido para la entrega.**
+
+Pero no sobra dejar en claro que si se requiere agregar un módulo o una SDK que agregue nuevas funcionalidades a la solucion, con el uso de arquitectura limpia, se puede brindar un bajo nivel de acoplamiento, entre dicho módulo y la solución, en este caso podríamos crear un caso de uso y su respectivo protocolo para poder interactuar con dicho módulo. 
+
+Espero que esta prueba demuestre mi conocimiento... y
+
+Ya que la integración de cualquier plugin o de SDK de terceros se puede hacer siguiendo el paso a paso de los mismos, pero integrar un módulo con bajo nivel de acoplamiento, usando una buena arquitectura, nos garantiza que en un futuro podremos migrar a otro proveedor, sin tener fricción en el proceso de cambio
