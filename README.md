@@ -88,10 +88,10 @@ FlutterEngine y FlutterViewController y utilizando un canal de comunicación
 entre Swift y Flutter utilizando MethodChannels
 ```
 
-**No fue posible avanzar en este punto debido al poco tiempo establecido para la entrega.**
+**No fue posible avanzar en este punto debido al poco tiempo establecido para la entrega, aunque poseo conocimientos sobre este punto 🥺.**
 
-Pero no sobra dejar en claro que si se requiere agregar un módulo o una SDK que agregue nuevas funcionalidades a la solucion, con el uso de arquitectura limpia, se puede brindar un bajo nivel de acoplamiento, entre dicho módulo y la solución, en este caso podríamos crear un caso de uso y su respectivo protocolo para poder interactuar con dicho módulo. 
+Pero no sobra dejar en claro que si se requiere agregar un módulo o una SDK que agregue nuevas funcionalidades a la solucion. Con el uso de arquitectura limpia se establece un bajo nivel de acoplamiento, entre dicho módulo y la solución, en este caso podríamos crear un caso de uso y su respectivo protocolo para poder interactuar con dicho módulo. 
 
-Espero que esta prueba demuestre mi conocimiento... y
+Espero que esta prueba demuestre mi conocimiento en clean code 🙂
 
-Ya que la integración de cualquier plugin o de SDK de terceros se puede hacer siguiendo el paso a paso de los mismos, pero integrar un módulo con bajo nivel de acoplamiento, usando una buena arquitectura, nos garantiza que en un futuro podremos migrar a otro proveedor, sin tener fricción en el proceso de cambio
+Ya que la integración de cualquier plugin o de SDK de terceros se puede hacer siguiendo el paso a paso de los mismos, pero integrar un módulo con bajo nivel de acoplamiento, usando una buena arquitectura, nos garantiza que en un futuro podremos migrar a otro proveedor, sin tener fricción en el proceso de cambio (cómo se evidencia en esta prueba técnica donde coexisten dos Frameworks de persistencia **Coredata y Swiftdata**, y sólo con un parámetro, la presentación puede recibir data tanto de uno como del otro, sin tener que modificarse)
