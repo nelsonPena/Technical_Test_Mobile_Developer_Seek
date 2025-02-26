@@ -78,20 +78,16 @@ private func createUseCase() -> ScannedDataUseCase? {
 5. **Compilar y ejecutar la aplicación**:
    - Presionar `Cmd + R` o hacer clic en el botón de ejecución en Xcode.
 
-### Comentarios 
+## Comentarios
 
-El punto en la prueba, referente a flutter:
-```
-Crear un módulo base en Flutter con estructura compatible para futuras
-expansiones, integrando dicho módulo en la aplicación nativa mediante
-FlutterEngine y FlutterViewController y utilizando un canal de comunicación
-entre Swift y Flutter utilizando MethodChannels
-```
+### Integración de Flutter en la Aplicación Nativa
 
-**No fue posible avanzar en este punto debido al poco tiempo establecido para la entrega, aunque poseo conocimientos sobre este punto 🥺.**
+En la prueba técnica se planteó la creación de un módulo base en Flutter con una estructura compatible para futuras expansiones, integrándolo en la aplicación nativa mediante `FlutterEngine` y `FlutterViewController`, además de establecer un canal de comunicación entre Swift y Flutter utilizando `MethodChannels`.  
 
-Pero no sobra dejar en claro que si se requiere agregar un módulo o una SDK que agregue nuevas funcionalidades a la solucion. Con el uso de arquitectura limpia se establece un bajo nivel de acoplamiento, entre dicho módulo y la solución, en este caso podríamos crear un caso de uso y su respectivo protocolo para poder interactuar con dicho módulo. 
+Sin embargo, debido al tiempo limitado para la entrega, no fue posible avanzar en este punto, aunque poseo conocimientos sobre su implementación.  
 
-Espero que esta prueba demuestre mi conocimiento en clean code 🙂
+Es importante destacar que, si se requiere agregar un módulo o SDK que incorpore nuevas funcionalidades a la solución, la **Arquitectura Limpia** permite establecer un **bajo nivel de acoplamiento** entre dicho módulo y la aplicación. En este caso, se podría crear un **caso de uso** y su respectivo **protocolo** para interactuar con el módulo de manera desacoplada.  
 
-Ya que la integración de cualquier plugin o de SDK de terceros se puede hacer siguiendo el paso a paso de los mismos, pero integrar un módulo con bajo nivel de acoplamiento, usando una buena arquitectura, nos garantiza que en un futuro podremos migrar a otro proveedor, sin tener fricción en el proceso de cambio (cómo se evidencia en esta prueba técnica donde coexisten dos Frameworks de persistencia **Coredata y Swiftdata**, y sólo con un parámetro, la presentación puede recibir data tanto de uno como del otro, sin tener que modificarse)
+Espero que esta prueba técnica refleje mi conocimiento en **Clean Code** 🙂. La integración de cualquier **plugin** o **SDK de terceros** puede realizarse siguiendo su documentación, pero diseñar un módulo con bajo acoplamiento y una buena arquitectura garantiza que, en el futuro, podamos migrar a otro proveedor sin generar fricción en el proceso de cambio.  
+
+Un claro ejemplo de este principio se evidencia en esta prueba técnica, donde coexisten **dos frameworks de persistencia: Core Data y SwiftData**. Gracias a la arquitectura implementada, la presentación puede recibir datos de cualquiera de estos frameworks sin necesidad de modificaciones, simplemente cambiando un **parámetro de configuración**.
