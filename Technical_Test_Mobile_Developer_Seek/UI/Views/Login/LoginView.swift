@@ -49,6 +49,7 @@ struct LoginView: View {
             }
             
             setPasswordButton
+            openFlutterButton
             
             Spacer()
         }
@@ -128,5 +129,24 @@ struct LoginView: View {
                 .foregroundColor(.blue)
         }
         .padding(.top, 10)
+    }
+    
+    private var openFlutterButton: some View {
+        Button(action: {
+            appCoordinator.push(page: .flutter)
+        }) {
+            HStack {
+                Image(systemName: "arrow.right.circle.fill")
+                Text("Open Flutter View")
+            }
+            .font(.system(size: 18, weight: .medium))
+            .foregroundColor(.white)
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(Color.purple)
+            .cornerRadius(15)
+            .shadow(radius: 5)
+        }
+        .padding(.horizontal, 40)
     }
 }

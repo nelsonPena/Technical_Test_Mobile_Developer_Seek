@@ -10,4 +10,5 @@ import Foundation
 enum AppPages: Hashable {
     case login
     case main
+    case flutter
 }
