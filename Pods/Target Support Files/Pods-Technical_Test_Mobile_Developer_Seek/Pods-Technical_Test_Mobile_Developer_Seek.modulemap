@@ -1,0 +1,6 @@
+framework module Pods_Technical_Test_Mobile_Developer_Seek {
+  umbrella header "Pods-Technical_Test_Mobile_Developer_Seek-umbrella.h"
+
+  export *
+  module * { export * }
+}
