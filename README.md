@@ -27,7 +27,10 @@ En lugar de inicializar `FlutterEngine` directamente en `FlutterCoordinator`, se
 
 ```swift
 protocol FlutterEngineProvider {
+    associatedtype FlutterView: View
     var engine: FlutterEngine { get }
+    func createFlutterView() -> FlutterView
+    func setupFlutterMethodChannel(viewController: FlutterViewController)
 }
 ```
 
@@ -35,11 +38,20 @@ Una implementación concreta de este protocolo, `DefaultFlutterEngineProvider`, 
 
 ```swift
 class DefaultFlutterEngineProvider: FlutterEngineProvider {
+    
     let engine: FlutterEngine
     
+    typealias FlutterView = FlutterViewControllerWrapper
+    
     init() {
-        self.engine = FlutterEngine(name: "primary_flutter_engine")
+        self.engine = FlutterEngine(name: FlutterConstants.primaryEngineName)
         self.engine.run()
+    }
+    
+    func createFlutterView() -> FlutterViewControllerWrapper {
+    }
+    
+    func setupFlutterMethodChannel(viewController: FlutterViewController) {
     }
 }
 ```
@@ -49,75 +61,17 @@ Se ha creado `FlutterCoordinator` para gestionar la navegación hacia Flutter y 
 
 ```swift
 class FlutterCoordinator {
-    private let engineProvider: FlutterEngineProvider
+     private let engineProvider: any FlutterEngineProvider
     
-    init(engineProvider: FlutterEngineProvider) {
+    init(engineProvider: any FlutterEngineProvider) {
         self.engineProvider = engineProvider
     }
     
-    func createFlutterView() -> some View {
-        let flutterViewController = FlutterViewController(engine: engineProvider.engine, nibName: nil, bundle: nil)
-        setupFlutterMethodChannel(viewController: flutterViewController)
-        return FlutterViewControllerWrapper(engine: engineProvider.engine)
-    }
-    
-    func setupFlutterMethodChannel(viewController: FlutterViewController) {
-        let methodChannel = FlutterMethodChannel(name: FlutterConstants.methodChannelName,
-                                                 binaryMessenger: viewController.binaryMessenger)
-        
-        methodChannel.setMethodCallHandler { (call, result) in
-            if call.method == "getData" {
-                result("Hello from iOS!")
-            } else {
-                result(FlutterMethodNotImplemented)
-            }
-        }
+    func createFlutterView() -> any View {
+        engineProvider.createFlutterView()
     }
 }
 ```
-
-### **3. Inyección de Dependencias en `AppCoordinator`**
-En `AppCoordinator`, la instancia de `FlutterCoordinator` se inicializa con `DefaultFlutterEngineProvider`, asegurando que la arquitectura permita futuras expansiones sin necesidad de modificar múltiples archivos.
-
-```swift
-class AppCoordinator: ObservableObject {
-    private let flutterCoordinator: FlutterCoordinator
-    
-    init() {
-        let engineProvider = DefaultFlutterEngineProvider()
-        self.flutterCoordinator = FlutterCoordinator(engineProvider: engineProvider)
-    }
-    
-    @MainActor @ViewBuilder
-    func build(page: AppPages) -> some View {
-        switch page {
-        case .login:
-            return AnyView(LoginView())
-        case .main:
-            return AnyView(MainView())
-        case .flutter:
-            return AnyView(flutterCoordinator.createFlutterView())
-        }
-    }
-}
-```
-
-### **Conclusión**
-Esta integración de Flutter en iOS sigue los principios de **Arquitectura Limpia**, permitiendo una separación clara de responsabilidades:
-
-- **Protocolo para `FlutterEngine`**: Permite inyección de dependencias.
-- **Coordinador Flutter**: Gestiona la navegación y la comunicación con iOS.
-- **Uso de `MethodChannels`**: Facilita la interacción entre Flutter y Swift.
-
-Gracias a esta estructura modular, la integración de nuevas funcionalidades en Flutter o la sustitución de `FlutterEngine` puede realizarse sin afectar la lógica de negocio ni la presentación de la app.
-
-
-finalmnete se hace uso `FlutterEngine` y `FlutterViewController`.
-
-   
-**FlutterCoordinator.swif**
-    - Inicializa `FlutterEngine` y gestiona la comunicación con Flutter.
-
 
 Ejemplo de implementación en `AppCoordinator`:
 
@@ -137,7 +91,7 @@ func popToRoot() {
 
 | Pantalla | Descripción |
 |----------|------------|
-| ![image](https://github.com/user-attachments/assets/9f22622d-98a0-4a82-8ce5-7782ab4aeb26) | **Pantalla de Autenticación** |
+| ![image](https://github.com/user-attachments/assets/81b8f5fd-4cc4-498a-b04f-45b72e3beea7) | **Pantalla de Autenticación** |
 | ![image](https://github.com/user-attachments/assets/edacee62-d10a-4297-9f8e-1cef54d9e142) | **Lista de Escaneos Vacía** |
 | ![image](https://github.com/user-attachments/assets/11ba69d9-8543-4291-b0dd-4799bb418f12) | **Lista con un Código QR Escaneado** |
 | ![image](https://github.com/user-attachments/assets/84410feb-b9de-4e50-a173-47fe8785111c) | **Escaneo de Código QR en Tiempo Real** |
@@ -164,48 +118,42 @@ private func createUseCase() -> ScannedDataUseCase? {
 
 ### Pasos para configurar y ejecutar la aplicación
 1. **Clonar el repositorio**:
-   ```sh
-   git clone https://github.com/nelsonPena/Technical_Test_Mobile_Developer_Seek
-   cd Technical_Test_Mobile_Developer_Seek
-   ```
+```sh
+git clone https://github.com/nelsonPena/Technical_Test_Mobile_Developer_Seek
+cd Technical_Test_Mobile_Developer_Seek
+```
    
 2. **Instalación de Dependencias con CocoaPods**
 
    - instala las dependencias ejecutando:
-       ```sh
-    cd ios
-    pod install --repo-update
-    ```
+```sh
+cd ios
+pod install --repo-update
+```
 
 3. **Instalación de Flutter y Configuración de Frameworks**:
 
-   - Para integrar Flutter en la aplicación iOS con SwiftUI, utilizando FlutterEngine y FlutterViewController, sigue estos pasos:
-   
-    **3.1. Instalación de Flutter**
-    **3.2 Descarga e Instalación de Flutter**
-    Si aún no tienes Flutter instalado, descárgalo desde la página oficial:
+ - Para integrar Flutter en la aplicación iOS con SwiftUI, utilizando FlutterEngine y FlutterViewController, sigue estos pasos:
 
-    - [Descargar Flutter](https://flutter.dev/docs/get-started/install)
+ - Generar los Frameworks de Flutter para iOS
+Para que iOS reconozca Flutter, compila los frameworks ejecutando:
 
-    **3.3 Generar los Frameworks de Flutter para iOS**
-    Para que iOS reconozca Flutter, compila los frameworks ejecutando:
+```sh
+cd flutter_module
+flutter build ios-framework --output=../ios/Flutter/
+```
 
-    ```sh
-    cd flutter_module
-    flutter build ios-framework --output=../ios/Flutter/
-    ```
+Esto generará los archivos de framework en `ios/Flutter/`.
 
-    Esto generará los archivos de framework en `ios/Flutter/`.
-
-    **3.4 Agregar el Módulo Flutter a Xcode**
+ - Agregar el Módulo Flutter a Xcode
 
     1. Abre Xcode y tu proyecto iOS.
     3. Agrega los generados en la carpeta Frameworks dentro del proyecto `Technical_Test_Mobile_Developer_Seek/Frameworks`.
    
 4. **Abrir el proyecto en Xcode**:
-   ```sh
-   open Technical_Test_Mobile_Developer_Seek.xcodeproj
-   ```
+```sh
+open Technical_Test_Mobile_Developer_Seek.xcodeproj
+```
 5. **Configurar Info.plist**:
    - Editar `Info.plist` y establecer la clave `Use Core Data` en `YES` o `NO` según el método de persistencia deseado.
 
