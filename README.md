@@ -27,7 +27,10 @@ En lugar de inicializar `FlutterEngine` directamente en `FlutterCoordinator`, se
 
 ```swift
 protocol FlutterEngineProvider {
+    associatedtype FlutterView: View
     var engine: FlutterEngine { get }
+    func createFlutterView() -> FlutterView
+    func setupFlutterMethodChannel(viewController: FlutterViewController)
 }
 ```
 
@@ -35,11 +38,20 @@ Una implementación concreta de este protocolo, `DefaultFlutterEngineProvider`, 
 
 ```swift
 class DefaultFlutterEngineProvider: FlutterEngineProvider {
+    
     let engine: FlutterEngine
     
+    typealias FlutterView = FlutterViewControllerWrapper
+    
     init() {
-        self.engine = FlutterEngine(name: "primary_flutter_engine")
+        self.engine = FlutterEngine(name: FlutterConstants.primaryEngineName)
         self.engine.run()
+    }
+    
+    func createFlutterView() -> FlutterViewControllerWrapper {
+    }
+    
+    func setupFlutterMethodChannel(viewController: FlutterViewController) {
     }
 }
 ```
@@ -49,58 +61,18 @@ Se ha creado `FlutterCoordinator` para gestionar la navegación hacia Flutter y 
 
 ```swift
 class FlutterCoordinator {
-    private let engineProvider: FlutterEngineProvider
+     private let engineProvider: any FlutterEngineProvider
     
-    init(engineProvider: FlutterEngineProvider) {
+    init(engineProvider: any FlutterEngineProvider) {
         self.engineProvider = engineProvider
     }
     
-    func createFlutterView() -> some View {
-        let flutterViewController = FlutterViewController(engine: engineProvider.engine, nibName: nil, bundle: nil)
-        setupFlutterMethodChannel(viewController: flutterViewController)
-        return FlutterViewControllerWrapper(engine: engineProvider.engine)
-    }
-    
-    func setupFlutterMethodChannel(viewController: FlutterViewController) {
-        let methodChannel = FlutterMethodChannel(name: FlutterConstants.methodChannelName,
-                                                 binaryMessenger: viewController.binaryMessenger)
-        
-        methodChannel.setMethodCallHandler { (call, result) in
-            if call.method == "getData" {
-                result("Hello from iOS!")
-            } else {
-                result(FlutterMethodNotImplemented)
-            }
-        }
+    func createFlutterView() -> any View {
+        engineProvider.createFlutterView()
     }
 }
 ```
 
-### **3. Inyección de Dependencias en `AppCoordinator`**
-En `AppCoordinator`, la instancia de `FlutterCoordinator` se inicializa con `DefaultFlutterEngineProvider`, asegurando que la arquitectura permita futuras expansiones sin necesidad de modificar múltiples archivos.
-
-```swift
-class AppCoordinator: ObservableObject {
-    private let flutterCoordinator: FlutterCoordinator
-    
-    init() {
-        let engineProvider = DefaultFlutterEngineProvider()
-        self.flutterCoordinator = FlutterCoordinator(engineProvider: engineProvider)
-    }
-    
-    @MainActor @ViewBuilder
-    func build(page: AppPages) -> some View {
-        switch page {
-        case .login:
-            return AnyView(LoginView())
-        case .main:
-            return AnyView(MainView())
-        case .flutter:
-            return AnyView(flutterCoordinator.createFlutterView())
-        }
-    }
-}
-```
 
 ### **Conclusión**
 Esta integración de Flutter en iOS sigue los principios de **Arquitectura Limpia**, permitiendo una separación clara de responsabilidades:
