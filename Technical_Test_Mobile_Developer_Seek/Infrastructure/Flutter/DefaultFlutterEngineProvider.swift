@@ -14,7 +14,7 @@ class DefaultFlutterEngineProvider: FlutterEngineProvider {
     typealias FlutterView = FlutterViewControllerWrapper
     
     init() {
-        self.engine = FlutterEngine(name: "primary_flutter_engine")
+        self.engine = FlutterEngine(name: FlutterConstants.primaryEngineName)
         self.engine.run()
     }
     

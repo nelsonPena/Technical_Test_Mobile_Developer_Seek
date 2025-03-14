@@ -18,22 +18,7 @@ class FlutterCoordinator {
         self.engineProvider = engineProvider
     }
     
-    func createFlutterView() -> FlutterViewControllerWrapper? {
-        let flutterViewController = FlutterViewController(engine: engineProvider.engine, nibName: nil, bundle: nil)
-               setupFlutterMethodChannel(viewController: flutterViewController)
-        return FlutterViewControllerWrapper(engine: engineProvider.engine)
-    }
-    
-    private func setupFlutterMethodChannel(viewController: FlutterViewController) {
-        let methodChannel = FlutterMethodChannel(name: FlutterConstants.methodChannelName,
-                                                 binaryMessenger: viewController.binaryMessenger)
-        
-        methodChannel.setMethodCallHandler { (call, result) in
-            if call.method == "getData" {
-                result("Hello from iOS!")
-            } else {
-                result(FlutterMethodNotImplemented)
-            }
-        }
+    func createFlutterView() -> any View {
+        engineProvider.createFlutterView()
     }
 }

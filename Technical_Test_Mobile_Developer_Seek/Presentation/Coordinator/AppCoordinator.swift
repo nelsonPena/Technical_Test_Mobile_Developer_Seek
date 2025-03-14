@@ -46,17 +46,11 @@ class AppCoordinator: ObservableObject {
     func build(page: AppPages) -> some View {
         switch page {
         case .login:
-            if let loginView = LoginViewFactory().build() {
-                loginView
-            }
+            AnyView(LoginViewFactory().build())
         case .main:
-            if let mainView = ScanningListViewFactory(modelContext: modelContext).build() {
-                mainView
-            }
+             AnyView(ScanningListViewFactory(modelContext: modelContext).build())
         case .flutter:
-            if let flutterView = flutterCoordinator.createFlutterView() {
-                flutterView
-            }
+            AnyView(flutterCoordinator.createFlutterView())
         }
     }
 }
