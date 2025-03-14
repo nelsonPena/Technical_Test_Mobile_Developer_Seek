@@ -92,6 +92,7 @@ func popToRoot() {
 | Pantalla | Descripción |
 |----------|------------|
 | ![image](https://github.com/user-attachments/assets/81b8f5fd-4cc4-498a-b04f-45b72e3beea7) | **Pantalla de Autenticación** |
+| ![image](https://github.com/user-attachments/assets/7c24153d-01fb-4e93-9638-dc6d3e0ad740) | **Pantalla módulo flutter** |
 | ![image](https://github.com/user-attachments/assets/edacee62-d10a-4297-9f8e-1cef54d9e142) | **Lista de Escaneos Vacía** |
 | ![image](https://github.com/user-attachments/assets/11ba69d9-8543-4291-b0dd-4799bb418f12) | **Lista con un Código QR Escaneado** |
 | ![image](https://github.com/user-attachments/assets/84410feb-b9de-4e50-a173-47fe8785111c) | **Escaneo de Código QR en Tiempo Real** |
